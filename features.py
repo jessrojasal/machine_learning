@@ -7,33 +7,34 @@ df_selected = pd.read_csv('data/real_estate_belguim.csv', sep=',')
 df = pd.DataFrame({
     'price': df_selected['price'],
     'longitude': df_selected['longitude'],
-    'latitude': df_selected['latitude'],
+    #'latitude': df_selected['latitude'],
     #'region': df_selected['region'],
-    'province': df_selected['province'],
-    'crime_rate': df_selected['crime_rate'],
-    'population_km': df_selected['population_km'],
+    #'province': df_selected['province'],
+    #'crime_rate': df_selected['crime_rate'],
+    #'population_km': df_selected['population_km'],
     'prosperity_index': df_selected['prosperity_index'],
-    'type_of_property': df_selected['type_of_property'],
-    'state_of_the_building': df_selected['state_of_the_building'],
-    'number_of_rooms': df_selected['number_of_rooms'],
+    #'type_of_property': df_selected['type_of_property'],
+    #'state_of_the_building': df_selected['state_of_the_building'],
+    #'number_of_rooms': df_selected['number_of_rooms'],
     'living_area': df_selected['living_area'],
-    'fully_equipped_kitchen': df_selected['fully_equipped_kitchen'],
-    'furnished': df_selected['furnished'],
-    'open_fire': df_selected['open_fire'],
-    #'surface_area_plot_of_land': df_selected['surface_area_plot_of_land'],
+    #'fully_equipped_kitchen': df_selected['fully_equipped_kitchen'],
+    #'furnished': df_selected['furnished'],
+    #'open_fire': df_selected['open_fire'],
     'number_of_facades': df_selected['number_of_facades'],
-    'swimming_pool': df_selected['swimming_pool'],
-    'ext_area': df_selected['ext_area'],
-    'postal_code': df_selected['postal_code'],
+    #'swimming_pool': df_selected['swimming_pool'],
+    #'postal_code': df_selected['postal_code'],
     'municipality': df_selected['municipality'],
-    'subtype_of_property': df_selected['subtype_of_property'],
+    #'accessible': df_selected[ 'accessible'],
+    #'exterior_space': df_selected['exterior_space']
 
 })
 
 # Filter the 'prosperity_index' column
 prosperity_counts = df['municipality'].value_counts()
-valid_prosperity_values = prosperity_counts[prosperity_counts > 10].index
+valid_prosperity_values = prosperity_counts[prosperity_counts > 20].index
 df = df[df['municipality'].isin(valid_prosperity_values)]
+
+del df['municipality']
 
 # Filter the 'prosperity_index' column
 #df = df[df['type_of_property'] == 'apartment']
