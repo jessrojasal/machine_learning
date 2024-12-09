@@ -43,6 +43,7 @@ dt_regressor = ModelDecisionTreeRegressor(random_state=100,
                                         min_samples_split=15, min_samples_leaf=10, max_leaf_nodes=150, max_depth=20)
 dt_regressor.train(X_train, y_train)
 dt_metrics = dt_regressor.evaluate(X_train, X_test, y_train, y_test)
+dt_vis = dt_regressor.plot_tree(X_train)
 
 # Train Random Forest Regressor model
 rf_regressor = ModelRandomForestRegressor(
@@ -51,3 +52,5 @@ rf_regressor = ModelRandomForestRegressor(
 )
 rf_regressor.train(X_train, y_train)
 rf_metrics = rf_regressor.evaluate(X_train, X_test, y_train, y_test)
+rf_vis = rf_regressor.plot_trees(X_train)
+

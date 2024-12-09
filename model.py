@@ -6,6 +6,7 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import RandomForestRegressor
 import matplotlib.pyplot as plt
 from sklearn.tree import plot_tree
+import os
 
 class Get_Regression_Metrics:
     """
@@ -212,6 +213,17 @@ class ModelDecisionTreeRegressor:
         print(f'Decision Tree Regressor metrics:{metrics}')
         return metrics.get_all_metrics()
 
+    def plot_tree(self,X_train):
+        """
+        Get the visualization for the decision tree regressor model. 
+        """
+        visualization_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "visualization")
+        plt.figure(figsize=(100, 30))
+        plot_tree(self.model, filled=True, feature_names=X_train.columns, rounded=True, fontsize=12)
+        plt.title('Decision Tree Regressor Visualization')
+        plt.savefig(os.path.join(visualization_dir, "decision_tree.png"))
+        plt.close()
+        print("Decision tree plot saved to visualization folder.")
 
 class ModelRandomForestRegressor:
     def __init__(self, random_state=100, n_estimators=150, min_samples_split=100, min_samples_leaf=17, max_leaf_nodes=100, max_depth=100):
@@ -241,7 +253,7 @@ class ModelRandomForestRegressor:
         :param X_train: Training features.
         :param y_train: Training target values.
         """
-        self.model.fit(X_train, y_train)
+        self.model.fit(X_train, y_train.ravel()) 
 
     def predict(self, X):
         """
@@ -262,6 +274,10 @@ class ModelRandomForestRegressor:
         :param y_test: Testing target values.
         :return A dictionary of metrics for both training and testing sets.
         """
+        # Flatten y_train and y_test to 1D arrays
+        y_train = y_train.ravel()
+        y_test = y_test.ravel()
+
         # Predictions
         y_train_pred = self.predict(X_train)
         y_test_pred = self.predict(X_test)
@@ -279,5 +295,23 @@ class ModelRandomForestRegressor:
         )
         print(f'Random Forest Regressor metrics: {metrics}')
         return metrics.get_all_metrics()
+    
+    def plot_trees(self, X_train):
+        """
+        Get the visualization for the random forest regressor model. 
+        Only the first 3 trees will be saved.
+        """
+        visualization_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "visualization")
+        if not os.path.exists(visualization_dir):
+            os.makedirs(visualization_dir)
 
+        num_trees_to_plot = min(3, len(self.model.estimators_))
 
+        for idx, tree in enumerate(self.model.estimators_[:num_trees_to_plot]):
+            plt.figure(figsize=(100, 20))
+            plot_tree(tree, filled=True, feature_names=X_train.columns, rounded=True, fontsize=12)
+            plt.title(f'Random Forest Regressor Tree {idx + 1}')
+            plt.savefig(os.path.join(visualization_dir, f"random_forest_tree_{idx + 1}.png"))
+            plt.close()
+
+        print(f"First {num_trees_to_plot} random forest trees saved to visualization folder.")
