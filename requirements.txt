@@ -3,4 +3,4 @@ numpy
 scikit-learn
 matplotlib
 scikit-learn
-time
+os
