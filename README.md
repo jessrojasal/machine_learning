@@ -30,20 +30,20 @@ The initial database contains 37021 observations and 20 columns. This database i
 <details>
 <summary><h4>Data augmentation</h4></summary>
 Using open data from data.gov.be, statbel.fgov.be and www.politie.be some new features were added. 
-- **Municipality**: Added using the postal code of each observation. 
-- **Prosperity index**: This index represents the relative average income of a municipality compared to the national average. It was taken from fiscal statistics for 2022. 
-- **Population density**: The population per square kilometer for each municipality, based on data from January 2024.  
-- **Crime rate**: Using crime statistics per municipality for 2023 and total population per municipality, the crime rate was calculated per 1,000 inhabitants.
-- **Median price of properties by municipality**: The median price for each municipality was calculated using data from 2023 and the first two trimesters of 2024, with a combined median of houses and apartments.  
+- Municipality: Added using the postal code of each observation. 
+- Prosperity index: This index represents the relative average income of a municipality compared to the national average. It was taken from fiscal statistics for 2022. 
+- Population density: The population per square kilometer for each municipality, based on data from January 2024.  
+- Crime rate: Using crime statistics per municipality for 2023 and total population per municipality, the crime rate was calculated per 1,000 inhabitants.
+- Median price of properties by municipality**: The median price for each municipality was calculated using data from 2023 and the first two trimesters of 2024, with a combined median of houses and apartments.  
 </details>
 
 <details>
 <summary><h4>Imputation of missing values</h4></summary>
-- **Boolean columns**: The next columns already contain or were converted to boolean columns: 'furnished', 'open_fire', 'terrace', 'garden', 'swimming_pool', 'disabled_access', 'lift', 'type_of_property'. The missing values were filled with zero, assuming that the observation does not have the feature when the value is missing. 
-- **Garden and terrace area**: The missing values for these columns were for observations that do not have a garden or terrace. These missing values were filled with 0. 
-- **State of the building and number of facades**: The missing values in these columns were imputed using the mode of each group (type_of_property, municipality) and the global mode for remaining missing values. 
-- **Living area**: The missing values in this column were imputed using the median of each group (type_of_property, municipality) and the global median for remaining missing values. 
-- **Median price per municipality**: The observations with missing values were dropped. 
+- Boolean columns**: The next columns already contain or were converted to boolean columns: 'furnished', 'open_fire', 'terrace', 'garden', 'swimming_pool', 'disabled_access', 'lift', 'type_of_property'. The missing values were filled with zero, assuming that the observation does not have the feature when the value is missing. 
+- Garden and terrace area**: The missing values for these columns were for observations that do not have a garden or terrace. These missing values were filled with 0. 
+- State of the building and number of facades**: The missing values in these columns were imputed using the mode of each group (type_of_property, municipality) and the global mode for remaining missing values. 
+- Living area: The missing values in this column were imputed using the median of each group (type_of_property, municipality) and the global median for remaining missing values. 
+- Median price per municipality**: The observations with missing values were dropped. 
 </details>
 
 <details>
@@ -66,21 +66,21 @@ Using open data from data.gov.be, statbel.fgov.be and www.politie.be some new fe
 
 <details>
 <summary><h4>Drop columns</h4></summary>
-- **'municipality', 'region', and 'province'**: These columns were used to create new features and filter data and are no longer needed. 
-- **'subtype_of_property'**: A large part of the observations had the same value for 'subtype_of_property' as for 'type_of_property'.
-- **'terrace_area' and 'garden_area'**: Initially, these columns were combined into 'ext_area', but the majority of the observations had zero values.  
-- **'surface_area_plot_of_land', 'surface_of_the_land'**: 'surface_of_the_land' repeated the values from 'garden_area', and apartments had no 'surface_area_plot_of_land'.   
-- **'population_km', 'crime_rate','postal_code','accessible', 'furnished', 'open_fire', 'swimming_pool'**: These columns had low correlation with the target.
+- 'municipality', 'region', and 'province'**: These columns were used to create new features and filter data and are no longer needed. 
+- 'subtype_of_property'**: A large part of the observations had the same value for 'subtype_of_property' as for 'type_of_property'.
+- 'terrace_area' and 'garden_area'**: Initially, these columns were combined into 'ext_area', but the majority of the observations had zero values.  
+- 'surface_area_plot_of_land', 'surface_of_the_land'**: 'surface_of_the_land' repeated the values from 'garden_area', and apartments had no 'surface_area_plot_of_land'.   
+- 'population_km', 'crime_rate','postal_code','accessible', 'furnished', 'open_fire', 'swimming_pool'**: These columns had low correlation with the target.
 - 'type_of_property' and 'number of rooms' have more correlation with living_area than with price.
 </details>
 
 Summary of the database after all steps: 
-- Shape: 18208, 5
-- Columns (all are numerical columns): 'price', 'living_area', 'median_price_per_municipality', 'prosperity_index', 'extra_investment'. 
+* Shape: 18208, 5
+* Columns (all are numerical columns): 'price', 'living_area', 'median_price_per_municipality', 'prosperity_index', 'extra_investment'. 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-#### Model
+### Model
 <details>
 - The model was train using the next features: 'living_area',	'median_price_per_municipality', 'extra_investment' and 'prosperity_index'
 - Split: The split for test/train dta was done 20/80
@@ -89,17 +89,17 @@ Summary of the database after all steps:
 - Parameters for Random Forest Regressor: n_estimators=150, min_samples_split=100, min_samples_leaf=17, max_leaf_nodes=100, max_depth=100
 <details>
 
-## **Installation**
+### **Installation**
 1. Clone the repository
 2. Install the required libraries by running pip install -r requirements.txt
 
-## **Usage**
+### **Usage**
 1. Run both (preprocess and model) running `main.py`
 
-## **Contributors**
+### **Contributors**
 * Jessica Rojas - https://github.com/jessrojasal
 
-## **Timeline**
+### **Timeline**
 2 Dic 2024 - project initiated 
 9 Dic 2024 - project concluded
 
