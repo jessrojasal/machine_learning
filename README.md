@@ -80,7 +80,7 @@ Summary of the database after all steps:
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### Model
+## Model
 <details>
 - The model was train using the next features: 'living_area',	'median_price_per_municipality', 'extra_investment' and 'prosperity_index'
 - Split: The split for test/train dta was done 20/80
@@ -89,17 +89,17 @@ Summary of the database after all steps:
 - Parameters for Random Forest Regressor: n_estimators=150, min_samples_split=100, min_samples_leaf=17, max_leaf_nodes=100, max_depth=100
 <details>
 
-### **Installation**
+## **Installation**
 1. Clone the repository
 2. Install the required libraries by running pip install -r requirements.txt
 
-### **Usage**
+## **Usage**
 1. Run both (preprocess and model) running `main.py`
 
-### **Contributors**
+## **Contributors**
 * Jessica Rojas - https://github.com/jessrojasal
 
-### **Timeline**
+## **Timeline**
 2 Dic 2024 - project initiated 
 9 Dic 2024 - project concluded
 
