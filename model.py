@@ -7,6 +7,7 @@ from sklearn.ensemble import RandomForestRegressor
 import matplotlib.pyplot as plt
 from sklearn.tree import plot_tree
 import os
+import time
 
 class Get_Regression_Metrics:
     """
@@ -19,6 +20,7 @@ class Get_Regression_Metrics:
     - R² (Coefficient of Determination)
     - Mean Absolute Percentage Error (MAPE)
     - Symmetrical Mean Absolute Percentage Error (sMAPE)
+    - Accuracy classification score
     """
     
     def __init__(self, y_train, y_train_pred, y_test, y_test_pred):
@@ -170,20 +172,30 @@ class ModelDecisionTreeRegressor:
     def train(self, X_train, y_train):
         """
         Train the Decision Tree Regressor model.
+        Measure training time for Decision Tree.
 
         :param X_train: Training features.
         :param y_train: Training target values.
+        Measure training time for Decision Tree
         """
+        start_time = time.time()
         self.model.fit(X_train, y_train)
+        dt_training_time = time.time() - start_time
+        print(f"Decision Tree Regressor Training Time: {dt_training_time:.3f} seconds")
 
     def predict(self, X):
         """
         Make predictions using the trained model.
+        Measure inference time for Decision Tree.  
 
         :param X: Features to predict on.
         :return Predictions from the model.
         """
-        return self.model.predict(X)
+        start_time = time.time()
+        self_predict = self.model.predict(X)
+        dt_inference_time = time.time() - start_time
+        print(f"Decision Tree Inference Time: {dt_inference_time:.3f} seconds")
+        return self_predict 
 
     def evaluate(self, X_train, X_test, y_train, y_test):
         """
@@ -249,20 +261,29 @@ class ModelRandomForestRegressor:
     def train(self, X_train, y_train):
         """
         Train the Random Forest Regressor model.
+        Measure training time for Random Forest
 
         :param X_train: Training features.
         :param y_train: Training target values.
         """
-        self.model.fit(X_train, y_train.ravel()) 
+        start_time = time.time()
+        self.model.fit(X_train, y_train.ravel())
+        rf_training_time  = time.time() - start_time
+        print(f"Random Forest Training Time: {rf_training_time:.3f} seconds")
 
     def predict(self, X):
         """
         Make predictions using the trained model.
-
+        Measure inference time for Random Forest.
+        
         :param X: Features to predict on.
         :return Predictions from the model.
         """
-        return self.model.predict(X)
+        start_time = time.time()
+        self_pred = self.model.predict(X)
+        rf_inference_time = time.time() - start_time
+        print(f"Random Forest Inference Time: {rf_inference_time:.3f} seconds")
+        return self_pred 
 
     def evaluate(self, X_train, X_test, y_train, y_test):
         """
